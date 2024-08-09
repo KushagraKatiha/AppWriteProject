@@ -1,5 +1,5 @@
-import config from '../config.js'
-import {Client, Account, ID, Query} from 'appwrite'
+import config from '../config/config.js'
+import {Client, Storage, ID, Query, Databases} from 'appwrite'
 
 export class Service{
     client = new Client();
@@ -11,15 +11,15 @@ export class Service{
             .setEndpoint(config.appwriteUrl)
             .setProject(config.appwriteProjectId);
 
-        this.databases = new Databases(this.client)
-        this.bucket = new Storage(this.client)    
+        this.databases = new Databases(this.client);
+        this.bucket = new Storage(this.client);   
     }
 
     async createPost({title, slug, content, featuredImage, status, userId}){
         try{
             return await this.databases.createDocument(
-                conf.appwriteDatabaseId,
-                conf.appwriteCollectionId,
+                config.appwriteDatabaseId,
+                config.appwriteCollectionId,
                 slug,
                 {
                     title,
